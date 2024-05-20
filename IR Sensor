@@ -1,0 +1,55 @@
+#include <IRremote.hpp>
+#include <IRremote.h>
+
+constexpr uint8_t IRpin {3};  // Pin connected to the IR receiver sensor
+IRrecv irrecv(IRpin);
+decode_results results;
+
+void setup() {
+  Serial.begin(115200);
+  IrReceiver.begin(IRpin);
+}
+
+void loop() {
+  if (IrReceive()== 72) {  // up
+
+    }
+
+    if (IrReceive()== 77){  //down
+
+    }
+
+    if (IrReceive()== 73){  //right
+
+    }
+
+    if (IrReceive()== 78){  //left
+
+    }
+
+    if (IrReceive()== 22){  //rewind
+
+    }
+
+    if (IrReceive()== 23){  //Fastforward
+
+    }
+
+
+    irrecv.resume();  // Continue to listen for IR signals
+  }
+
+  uint16_t IrReceive() {
+    uint16_t received{0};
+
+    if(IrReceiver.decode()){
+
+      received = IrReceiver.decodedIRData.command;
+      Serial.println(received);
+    }
+
+    IrReceiver.resume();
+
+    return received;
+}
+
